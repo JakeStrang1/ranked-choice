@@ -1,0 +1,42 @@
+{
+  "name": "@ranked-choice/backend",
+  "version": "1.0.0",
+  "description": "Ranked Choice backend API server",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:prod": "node dist/server.js",
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest",
+    "db:migrate": "mikro-orm migration:up",
+    "db:gen": "mikro-orm migration:create",
+    "check:env": "node src/utils/envVars.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.0.0",
+    "@mikro-orm/core": "^6.2.7",
+    "@mikro-orm/migrations": "^6.2.7",
+    "@mikro-orm/postgresql": "^6.2.7",
+    "dotenv": "^16.4.5",
+    "hono": "^4.0.0",
+    "pg": "^8.11.5",
+    "uuidv7": "^1.0.0"
+  },
+  "devDependencies": {
+    "@mikro-orm/cli": "^6.2.7",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

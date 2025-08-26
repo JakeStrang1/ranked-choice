@@ -1,0 +1,79 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+      - 'scripts/**'
+      - '.github/workflows/deploy-backend.yml'
+
+
+concurrency:
+  group: deploy-backend-main
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm run install:all
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+
+            APP_DIR=${APP_DIR:-/opt/ranked-choice}
+
+            echo "==> Using APP_DIR=$APP_DIR"
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "==> Repo directory not found at $APP_DIR. Please clone the repo there once and configure remote to use SSH."
+              exit 1
+            fi
+
+            cd "$APP_DIR"
+            echo "==> Pulling latest main"
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "==> Creating .env from GitHub secrets"
+
+            # Preferred: single multi-line secret BACKEND_ENV containing the entire .env content
+            if [ -n "${{ secrets.BACKEND_ENV }}" ]; then
+              echo "==> Using BACKEND_ENV secret"
+              cat > .env << 'EOF'
+              ${{ secrets.BACKEND_ENV }}
+              EOF
+            fi
+
+            chmod 600 .env
+            echo "==> Wrote .env (keys hidden)"
+
+            echo "==> Installing top-level deps, if any"
+            npm ci
+
+            echo "==> Running backend deploy script"
+            bash scripts/deploy-backend.sh
+
+            echo "==> Done"
+
+

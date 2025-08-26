@@ -1,0 +1,8 @@
+{
+    "name": "hoist",
+    "compatibility_date": "2025-08-07",
+    "route": {
+        "pattern": "hoist.blurp.ca",
+        "custom_domain": true
+    }
+}
