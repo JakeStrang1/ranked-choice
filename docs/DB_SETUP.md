@@ -1,6 +1,7 @@
 ```
 sudo -u postgres psql
-CREATE DATABASE ranked_choice
+CREATE DATABASE ranked_choice;
+\c ranked_choice;
 GRANT ALL PRIVILEGES ON DATABASE ranked_choice TO jake;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO jake;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO jake;
