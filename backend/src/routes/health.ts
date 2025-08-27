@@ -16,7 +16,8 @@ health.get('/', async (c) => {
     const orm = await getOrm();
     const rows: any[] = await orm.em.getConnection().execute('SELECT NOW()');
     response.databaseStatus = Array.isArray(rows) && rows.length > 0 ? 'connected' : 'failed';
-  } catch {
+  } catch (e) {
+    console.error(e);
     response.databaseStatus = 'failed';
   }
 

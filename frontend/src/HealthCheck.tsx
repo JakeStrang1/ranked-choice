@@ -26,9 +26,9 @@ function HealthCheck() {
     return (
         <div className="flex flex-col items-center gap-5 p-5">
             <div>
-                <span className="text-7xl">🦾</span>
+                <span className="text-7xl">📊</span>
             </div>
-            <h1 className="text-5xl font-bold mt-7 mb-4">hoist</h1>
+            <h1 className="text-5xl font-bold mt-7 mb-4">Ranked Choice</h1>
 
             {/* Backend Health Check Display */}
             <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">

@@ -6,11 +6,11 @@ export class Poll {
   @PrimaryKey()
   id: string = uuidv7();
 
-  @Property({ length: 100 })
+  @Property({ type: 'varchar', length: 100 })
   @Unique()
   slug!: string;
 
-  @Property({ length: 100 })
+  @Property({ type: 'varchar', length: 100 })
   name!: string;
 
   @Property({ type: 'array' })

@@ -109,7 +109,7 @@ source .env
 ### Option A: Systemd Service (Recommended)
 ```bash
 # Create service file
-sudo nano /etc/systemd/system/cloudflare-dns-update.service
+sudo nano /etc/systemd/system/cloudflare-dns-update-ranked-choice.service
 ```
 
 Add:
@@ -122,7 +122,7 @@ Wants=network.target
 [Service]
 Type=oneshot
 User=ubuntu
-WorkingDirectory=/opt/hoist
+WorkingDirectory=/opt/ranked-choice
 ExecStart=/bin/bash -c './scripts/update-cloudflare-dns.sh'
 StandardOutput=journal
 StandardError=journal
@@ -134,7 +134,7 @@ WantedBy=multi-user.target
 ```bash
 # Enable the service
 sudo systemctl daemon-reload
-sudo systemctl enable cloudflare-dns-update.service
+sudo systemctl enable cloudflare-dns-update-ranked-choice.service
 ```
 
 ## Step 6: Monitor the Updates

@@ -7,7 +7,7 @@ function App() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
             <Router>
                 <Routes>
-                    <Route path="/" element={<Navigate to={'/home'} replace />} />
+                    <Route path="/" element={<Navigate to={'/health'} replace />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/health" element={<HealthCheck />} />
                 </Routes>

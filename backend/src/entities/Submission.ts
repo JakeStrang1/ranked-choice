@@ -8,7 +8,7 @@ export class Submission {
   @PrimaryKey()
   id: string = uuidv7();
 
-  @Property({ length: 100 })
+  @Property({ type: 'varchar', length: 100 })
   userName!: string;
 
   @ManyToOne(() => Poll)
