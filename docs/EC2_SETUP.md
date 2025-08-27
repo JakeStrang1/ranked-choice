@@ -40,6 +40,28 @@ sudo mkdir -p /opt/ranked-choice/logs
 sudo chown $USER:$USER /opt/ranked-choice/logs
 ```
 
+# Make sure ssh user can act as the appropriate psql user
+```bash
+sudo nano /etc/postgresql/*/main/pg_ident.conf
+
+# Add this line to pg_ident.conf:
+# MAPNAME     SYSTEM-USERNAME         PG-USERNAME
+jake_map      ubuntu                  jake
+
+# Edit pg_hba.conf to enable ident authentication
+sudo nano /etc/postgresql/*/main/pg_hba.conf
+
+# Add/modify this line in pg_hba.conf:
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   all             jake                                   ident map=jake_map
+
+# Restart PostgreSQL
+sudo systemctl restart postgresql
+
+# Test the connection
+psql -U jake -d ranked_choice
+```
+
 ## Step 2: Application Setup
 
 # Install backend dependencies
