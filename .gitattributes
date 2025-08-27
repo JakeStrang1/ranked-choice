@@ -1,0 +1,2 @@
+# Ensures script files will be executable
+*.sh text eol=lf executable

@@ -216,14 +216,14 @@ sudo systemctl restart nginx
 # Test HTTP (should redirect to HTTPS)
 curl -I http://ranked-choice-api.blurp.ca/api/health
 
-# Test HTTPS locally (with -k flag for self-signed cert)
-curl -k https://localhost/api/health
-
 # Test HTTPS from external (should work with Cloudflare proxy)
 curl https://ranked-choice-api.blurp.ca/api/health
 
 # Expected response:
 # {"status":"ok","timestamp":"...","service":"ranked-choice-api"}
+
+# View backend logs for debugging
+pm2 logs ranked-choice-api --lines 50
 ```
 
 ## Step 9: Firewall Setup
@@ -245,7 +245,7 @@ export const corsMiddleware = cors({
   origin: [
     'https://ranked-choice.blurp.ca',
     'https://ranked-choice-api.blurp.ca',
-    'http://localhost:3000',
+    'http://localhost:3001',
     'http://localhost:5173'
   ],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
