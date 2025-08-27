@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT || 22 }}
           source: ".env"
-          target: "/opt/ranked-choice/.env"
+          target: "/opt/ranked-choice/"
 
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v1.0.3
