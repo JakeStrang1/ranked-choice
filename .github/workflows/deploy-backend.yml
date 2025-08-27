@@ -59,9 +59,7 @@ jobs:
             # Preferred: single multi-line secret BACKEND_ENV containing the entire .env content
             if [ -n "${{ secrets.BACKEND_ENV }}" ]; then
               echo "==> Using BACKEND_ENV secret"
-              cat > .env << 'EOF'
-              ${{ secrets.BACKEND_ENV }}
-              EOF
+              echo "${{ secrets.BACKEND_ENV }}" > .env
             fi
 
             chmod 600 .env
