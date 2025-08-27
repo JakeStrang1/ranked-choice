@@ -30,17 +30,17 @@ sudo apt install curl git -y
 sudo mkdir -p /opt/ranked-choice
 sudo chown $USER:$USER /opt/ranked-choice
 
+```bash
+# Clone repository (replace with your repo URL)
+cd /opt/ranked-choice
+git clone <your-repo-url> ./
+
 # Create logs directory
 sudo mkdir -p /opt/ranked-choice/logs
 sudo chown $USER:$USER /opt/ranked-choice/logs
 ```
 
 ## Step 2: Application Setup
-
-```bash
-# Clone repository (replace with your repo URL)
-cd /opt/ranked-choice
-git clone <your-repo-url> .
 
 # Install backend dependencies
 cd backend
@@ -112,20 +112,20 @@ sudo systemctl restart nginx
 ```bash
 # On EC2 server
 sudo mkdir -p /etc/ssl/private
-sudo nano /etc/ssl/certs/origin.pem
+sudo nano /etc/ssl/certs/ranked-choice-api.pem
 # Paste your origin certificate content (.pem file)
 
-sudo nano /etc/ssl/private/origin.key
+sudo nano /etc/ssl/private/ranked-choice-api.key
 # Paste your origin private key content (.key file)
 ```
 
 ### Set Proper Permissions
 ```bash
 # Set secure permissions
-sudo chmod 644 /etc/ssl/certs/origin.pem
-sudo chmod 600 /etc/ssl/private/origin.key
-sudo chown root:root /etc/ssl/certs/origin.pem
-sudo chown root:root /etc/ssl/private/origin.key
+sudo chmod 644 /etc/ssl/certs/ranked-choice-api.pem
+sudo chmod 600 /etc/ssl/private/ranked-choice-api.key
+sudo chown root:root /etc/ssl/certs/ranked-choice-api.pem
+sudo chown root:root /etc/ssl/private/ranked-choice-api.key
 ```
 
 ## Step 6: HTTPS Nginx Configuration
@@ -148,8 +148,8 @@ server {
     server_name ranked-choice-api.blurp.ca;
     
     # Cloudflare Origin Certificate (separate files)
-    ssl_certificate /etc/ssl/certs/origin.pem;
-    ssl_certificate_key /etc/ssl/private/origin.key;
+    ssl_certificate /etc/ssl/certs/ranked-choice-api.pem;
+    ssl_certificate_key /etc/ssl/private/ranked-choice-api.key;
     
     # SSL configuration
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -164,7 +164,7 @@ server {
     add_header X-Content-Type-Options nosniff always;
     
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;

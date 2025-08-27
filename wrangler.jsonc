@@ -1,8 +1,8 @@
 {
-    "name": "hoist",
+    "name": "ranked-choice",
     "compatibility_date": "2025-08-07",
     "route": {
-        "pattern": "hoist.blurp.ca",
+        "pattern": "ranked-choice.blurp.ca",
         "custom_domain": true
     }
 }
