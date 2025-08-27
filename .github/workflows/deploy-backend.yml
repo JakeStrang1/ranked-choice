@@ -3,10 +3,10 @@ name: Deploy Backend
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'backend/**'
-      - 'scripts/**'
-      - '.github/workflows/deploy-backend.yml'
+    paths-ignore:
+      - 'frontend/**'
+      - 'README.md'
+      - '.gitignore'
 
 
 concurrency:
