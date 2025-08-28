@@ -162,9 +162,11 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
+                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2`}
                 >
-                  {DESCRIPTION_PLACEHOLDER}
+                  <span className="border-b-3 border-dotted border-gray-300">
+                    {DESCRIPTION_PLACEHOLDER}
+                  </span>
                 </button>
               )}
               </div>
@@ -293,9 +295,11 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
+                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2`}
                 >
-                  {DESCRIPTION_PLACEHOLDER}
+                  <span className="border-b-3 border-dotted border-gray-300">
+                    {DESCRIPTION_PLACEHOLDER}
+                  </span>
                 </button>
               )}
             </div>
