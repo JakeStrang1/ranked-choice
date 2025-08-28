@@ -105,7 +105,7 @@ export default function Home() {
           <div className="lg:col-span-5 xl:col-span-4" style={{ minWidth: 0, maxWidth: 'none', width: '100%' }}>
             <div className="sticky top-24">
               {/* Editable Title */}
-              <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
+              <div className="mb-4 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
                 {isTitleEditing ? (
                   <input
                     type="text"
@@ -121,7 +121,7 @@ export default function Home() {
                 ) : (
                   <h2 
                     onClick={startTitleEditing}
-                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
                     style={{ width: '400px', display: 'block' }}
                     title="Click to edit title"
                   >
@@ -156,7 +156,7 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 underline decoration-dotted px-3 py-2`}
+                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
                 >
                   + Add description
                 </button>
@@ -234,7 +234,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="max-w-2xl mx-auto">
             {/* Editable Title */}
-            <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
+            <div className="mb-4 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isTitleEditing ? (
                 <input
                   type="text"
@@ -250,7 +250,7 @@ export default function Home() {
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 ${title === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                  className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
                   style={{ width: '320px', display: 'block' }}
                   title="Click to edit title"
                 >
@@ -285,7 +285,7 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 underline decoration-dotted px-3 py-2`}
+                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-4 pt-2 border-b-4 border-dotted border-gray-300`}
                 >
                   + Add description
                 </button>
