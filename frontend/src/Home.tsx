@@ -242,7 +242,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="max-w-2xl mx-auto">
             {/* Editable Title */}
-            <div className="mb-4 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
+            <div className="w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isTitleEditing ? (
                 <input
                   type="text"
@@ -270,7 +270,7 @@ export default function Home() {
             </div>
 
             {/* Editable Description */}
-            <div className="mb-12 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
+            <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isDescriptionEditing ? (
                 <textarea
                   value={description}
@@ -305,7 +305,7 @@ export default function Home() {
             </div>
 
             {/* Choices Section */}
-            <div className="space-y-6">
+            <div className="space-y-6 mx-4">
               <h3 className={`text-lg font-semibold ${selectedStyle.textPrimary} mb-6`}>
                 Choices
               </h3>
