@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect, useCallback } from 'react';
 
 interface Choice {
   id: string;
@@ -23,6 +23,7 @@ export default function Home() {
   // Placeholder text constants
   const TITLE_PLACEHOLDER = '+ Add a title';
   const DESCRIPTION_PLACEHOLDER = '+ Add a description';
+  const TITLE_FONT_SHRINK_THRESHOLD = 30;
   
   const [title, setTitle] = useState(TITLE_PLACEHOLDER);
   const [description, setDescription] = useState('');
@@ -33,6 +34,27 @@ export default function Home() {
   ]);
   const [isTitleEditing, setIsTitleEditing] = useState(false);
   const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
+  
+  const titleTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Recalculate textarea height when entering edit mode
+  useLayoutEffect(() => {
+    if (isTitleEditing && titleTextareaRef.current) {
+      // Force a reflow to ensure content is rendered
+      titleTextareaRef.current.style.height = 'auto';
+      titleTextareaRef.current.style.height = titleTextareaRef.current.scrollHeight + 'px';
+    }
+  }, [isTitleEditing, title]);
+
+  // Callback ref to set height when textarea is mounted
+  const setTextareaRef = useCallback((node: HTMLTextAreaElement | null) => {
+    if (node) {
+      titleTextareaRef.current = node;
+      // Set height immediately when textarea is mounted
+      node.style.height = 'auto';
+      node.style.height = node.scrollHeight + 'px';
+    }
+  }, []);
 
   const addChoice = () => {
     const newId = (choices.length + 1).toString();
@@ -111,22 +133,37 @@ export default function Home() {
               {/* Editable Title */}
               <div className="mb-4 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
                 {isTitleEditing ? (
-                  <input
-                    type="text"
+                  <textarea
+                    ref={setTextareaRef}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => saveTitle(title)}
-                    onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
-                                      className={`text-4xl xl:text-5xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                  style={{ width: '100%', boxSizing: 'border-box' }}
-                  placeholder="Enter your title"
+                    onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveTitle(title)}
+                    className={`font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
+                    style={{ 
+                      width: '100%', 
+                      boxSizing: 'border-box',
+                      fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? '1.5rem' : '2.25rem',
+                      minHeight: '3rem',
+                      lineHeight: '1.2'
+                    }}
+                    placeholder="Enter your title"
+                    rows={1}
                     autoFocus
+                    onInput={(e) => {
+                      const target = e.target as HTMLTextAreaElement;
+                      target.style.height = 'auto';
+                      target.style.height = target.scrollHeight + 'px';
+                    }}
                   />
                 ) : (
                   <h2 
                     onClick={startTitleEditing}
-                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
-                    style={{ display: 'block' }}
+                    className={`font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
+                    style={{ 
+                      display: 'block',
+                      fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? '1.5rem' : '2.25rem'
+                    }}
                     title="Click to edit title"
                   >
                     <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
@@ -245,22 +282,38 @@ export default function Home() {
             {/* Editable Title */}
             <div className="mb-2 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isTitleEditing ? (
-                <input
-                  type="text"
+                <textarea
+                  ref={setTextareaRef}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   onBlur={() => saveTitle(title)}
-                  onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
-                  className={`text-3xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                  style={{ width: '100%', boxSizing: 'border-box' }}
+                  onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveTitle(title)}
+                  className={`font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
+                  style={{ 
+                    width: '100%', 
+                    boxSizing: 'border-box',
+                    fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? '1.25rem' : '1.875rem',
+                    minHeight: '2.5rem',
+                    lineHeight: '1.2'
+                  }}
                   placeholder="Enter your title"
+                  rows={1}
                   autoFocus
+                  onInput={(e) => {
+                    const target = e.target as HTMLTextAreaElement;
+                    target.style.height = 'auto';
+                    target.style.height = target.scrollHeight + 'px';
+                  }}
                 />
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
-                  style={{ width: '100%', display: 'block' }}
+                  className={`font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
+                  style={{ 
+                    width: '100%', 
+                    display: 'block',
+                    fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? '1.25rem' : '1.875rem'
+                  }}
                 >
                   <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
                     {title.trim() === '' ? TITLE_PLACEHOLDER : title}
