@@ -47,6 +47,19 @@ export default function Home() {
     ));
   };
 
+  const startTitleEditing = () => {
+    setIsTitleEditing(true);
+    // If title is placeholder text, clear it for editing
+    if (title.trim() === '' || title.trim() === 'My Ranked Choice Poll') {
+      setTitle('');
+    }
+  };
+
+  const startDescriptionEditing = () => {
+    setIsDescriptionEditing(true);
+    // If description is empty, don't change anything
+  };
+
   const removeChoice = (id: string) => {
     if (choices.length > 2) {
       setChoices(choices.filter(choice => choice.id !== id));
@@ -92,7 +105,7 @@ export default function Home() {
           <div className="lg:col-span-5 xl:col-span-4">
             <div className="sticky top-24">
               {/* Editable Title */}
-              <div className="mb-8">
+              <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
                 {isTitleEditing ? (
                   <input
                     type="text"
@@ -100,50 +113,54 @@ export default function Home() {
                     onChange={(e) => setTitle(e.target.value)}
                     onBlur={() => saveTitle(title)}
                     onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
-                    className={`text-4xl xl:text-5xl font-bold ${selectedStyle.textPrimary} bg-transparent w-full focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                    placeholder="Enter your poll title..."
+                                      className={`text-4xl xl:text-5xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
+                  style={{ width: '100%', maxWidth: '28rem', boxSizing: 'border-box' }}
+                  placeholder="Enter your title"
                     autoFocus
                   />
                 ) : (
                   <h2 
-                    onClick={() => setIsTitleEditing(true)}
-                    className={`text-4xl xl:text-5xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                    onClick={startTitleEditing}
+                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                    style={{ width: '400px', display: 'block' }}
                     title="Click to edit title"
                   >
-                    {title}
+                    {title.trim() === '' ? 'My Ranked Choice Poll' : title}
                   </h2>
                 )}
               </div>
 
               {/* Editable Description */}
-              <div className="mb-8">
+              <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
                 {isDescriptionEditing ? (
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     onBlur={() => saveDescription(description)}
                     onKeyPress={(e) => e.key === 'Enter' && e.ctrlKey && saveDescription(description)}
-                    className={`text-lg xl:text-xl ${selectedStyle.textSecondary} bg-transparent w-full focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
+                    className={`text-lg xl:text-xl ${selectedStyle.textSecondary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
+                  style={{ width: '100%', maxWidth: '28rem', boxSizing: 'border-box' }}
                     placeholder="Add a description for your poll..."
                     rows={3}
                     autoFocus
                   />
-                ) : description ? (
-                  <p 
-                    onClick={() => setIsDescriptionEditing(true)}
-                    className={`text-lg xl:text-xl ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
-                    title="Click to edit description"
-                  >
-                    {description}
-                  </p>
-                ) : (
-                  <button
-                    onClick={() => setIsDescriptionEditing(true)}
-                    className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 underline decoration-dotted px-3 py-2`}
-                  >
-                    + Add description
-                  </button>
-                )}
+                              ) : description && description.trim() !== '' ? (
+                <p 
+                  onClick={startDescriptionEditing}
+                  className={`text-lg xl:text-xl ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  style={{ width: '400px', display: 'block' }}
+                  title="Click to edit description"
+                >
+                  {description}
+                </p>
+              ) : (
+                <button
+                  onClick={startDescriptionEditing}
+                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 underline decoration-dotted px-3 py-2`}
+                >
+                  + Add description
+                </button>
+              )}
               </div>
 
               {/* Footer Info */}
@@ -217,7 +234,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="max-w-2xl mx-auto">
             {/* Editable Title */}
-            <div className="mb-8">
+            <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isTitleEditing ? (
                 <input
                   type="text"
@@ -225,14 +242,16 @@ export default function Home() {
                   onChange={(e) => setTitle(e.target.value)}
                   onBlur={() => saveTitle(title)}
                   onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
-                  className={`text-3xl font-bold ${selectedStyle.textPrimary} bg-transparent w-full focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                  placeholder="Enter your poll title..."
+                  className={`text-3xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
+                  style={{ width: '100%', maxWidth: '24rem', boxSizing: 'border-box' }}
+                  placeholder="Enter your title"
                   autoFocus
                 />
               ) : (
                 <h2 
-                  onClick={() => setIsTitleEditing(true)}
+                  onClick={startTitleEditing}
                   className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  style={{ width: '320px', display: 'block' }}
                   title="Click to edit title"
                 >
                   {title}
@@ -241,29 +260,31 @@ export default function Home() {
             </div>
 
             {/* Editable Description */}
-            <div className="mb-12">
+            <div className="mb-12 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isDescriptionEditing ? (
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   onBlur={() => saveDescription(description)}
                   onKeyPress={(e) => e.key === 'Enter' && e.ctrlKey && saveDescription(description)}
-                  className={`text-base ${selectedStyle.textSecondary} bg-transparent w-full focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
+                  className={`text-base ${selectedStyle.textSecondary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
+                  style={{ width: '100%', maxWidth: '24rem', boxSizing: 'border-box' }}
                   placeholder="Add a description for your poll..."
                   rows={2}
                   autoFocus
                 />
               ) : description ? (
                 <p 
-                  onClick={() => setIsDescriptionEditing(true)}
+                  onClick={startDescriptionEditing}
                   className={`text-base ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  style={{ width: '320px', display: 'block' }}
                   title="Click to edit description"
                 >
                   {description}
                 </p>
               ) : (
                 <button
-                  onClick={() => setIsDescriptionEditing(true)}
+                  onClick={startDescriptionEditing}
                   className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 underline decoration-dotted px-3 py-2`}
                 >
                   + Add description
