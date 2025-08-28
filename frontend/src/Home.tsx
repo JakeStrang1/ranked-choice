@@ -20,7 +20,11 @@ const selectedStyle = {
 };
 
 export default function Home() {
-  const [title, setTitle] = useState('My Ranked Choice Poll');
+  // Placeholder text constants
+  const TITLE_PLACEHOLDER = '+ Add a title';
+  const DESCRIPTION_PLACEHOLDER = '+ Add a description';
+  
+  const [title, setTitle] = useState(TITLE_PLACEHOLDER);
   const [description, setDescription] = useState('');
   const [choices, setChoices] = useState<Choice[]>([
     { id: '1', text: 'Option 1', isEditing: false },
@@ -50,7 +54,7 @@ export default function Home() {
   const startTitleEditing = () => {
     setIsTitleEditing(true);
     // If title is placeholder text, clear it for editing
-    if (title.trim() === '' || title.trim() === 'My Ranked Choice Poll') {
+    if (title.trim() === '' || title.trim() === TITLE_PLACEHOLDER) {
       setTitle('');
     }
   };
@@ -114,18 +118,20 @@ export default function Home() {
                     onBlur={() => saveTitle(title)}
                     onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
                                       className={`text-4xl xl:text-5xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                  style={{ width: '100%', maxWidth: '28rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                   placeholder="Enter your title"
                     autoFocus
                   />
                 ) : (
                   <h2 
                     onClick={startTitleEditing}
-                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
-                    style={{ width: '400px', display: 'block' }}
+                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                    style={{ display: 'block' }}
                     title="Click to edit title"
                   >
-                    {title.trim() === '' ? 'My Ranked Choice Poll' : title}
+                    <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+                      {title.trim() === '' ? TITLE_PLACEHOLDER : title}
+                    </span>
                   </h2>
                 )}
               </div>
@@ -138,19 +144,19 @@ export default function Home() {
                     onChange={(e) => setDescription(e.target.value)}
                     onBlur={() => saveDescription(description)}
                     onKeyPress={(e) => e.key === 'Enter' && e.ctrlKey && saveDescription(description)}
-                    className={`text-lg xl:text-xl ${selectedStyle.textSecondary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
-                  style={{ width: '100%', maxWidth: '28rem', boxSizing: 'border-box' }}
-                    placeholder="Add a description for your poll..."
+                                      className={`text-lg xl:text-xl ${selectedStyle.textSecondary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
+                  placeholder="Add a description for your poll..."
                     rows={3}
                     autoFocus
                   />
                               ) : description && description.trim() !== '' ? (
-                <p 
-                  onClick={startDescriptionEditing}
-                  className={`text-lg xl:text-xl ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
-                  style={{ width: '400px', display: 'block' }}
-                  title="Click to edit description"
-                >
+                                  <p 
+                    onClick={startDescriptionEditing}
+                    className={`text-lg xl:text-xl ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                    style={{ display: 'block' }}
+                    title="Click to edit description"
+                  >
                   {description}
                 </p>
               ) : (
@@ -158,7 +164,7 @@ export default function Home() {
                   onClick={startDescriptionEditing}
                   className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
                 >
-                  + Add description
+                  {DESCRIPTION_PLACEHOLDER}
                 </button>
               )}
               </div>
@@ -250,11 +256,13 @@ export default function Home() {
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
                   style={{ width: '100%', display: 'block' }}
                   title="Click to edit title"
                 >
-                  {title.trim() === '' ? 'My Ranked Choice Poll' : title}
+                  <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+                    {title.trim() === '' ? TITLE_PLACEHOLDER : title}
+                  </span>
                 </h2>
               )}
             </div>
@@ -287,7 +295,7 @@ export default function Home() {
                   onClick={startDescriptionEditing}
                   className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
                 >
-                  + Add description
+                  {DESCRIPTION_PLACEHOLDER}
                 </button>
               )}
             </div>
