@@ -125,7 +125,7 @@ export default function Home() {
                 ) : (
                   <h2 
                     onClick={startTitleEditing}
-                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
                     style={{ display: 'block' }}
                     title="Click to edit title"
                   >
@@ -162,7 +162,8 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2`}
+                  className={`text-lg xl:text-xl ${selectedStyle.textPlaceholder} cursor-pointer hover:bg-rose-50 hover:border-rose-200 transition-colors duration-200 px-3 pb-1 pt-2 rounded-lg border-2 border-transparent text-left`}
+                  style={{ width: '100%', display: 'block' }}
                 >
                   <span className="border-b-3 border-dotted border-gray-300">
                     {DESCRIPTION_PLACEHOLDER}
@@ -242,7 +243,7 @@ export default function Home() {
         <div className="lg:hidden">
           <div className="max-w-2xl mx-auto">
             {/* Editable Title */}
-            <div className="w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
+            <div className="mb-2 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
               {isTitleEditing ? (
                 <input
                   type="text"
@@ -258,9 +259,8 @@ export default function Home() {
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
                   style={{ width: '100%', display: 'block' }}
-                  title="Click to edit title"
                 >
                   <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
                     {title.trim() === '' ? TITLE_PLACEHOLDER : title}
@@ -286,7 +286,7 @@ export default function Home() {
               ) : description ? (
                 <p 
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  className={`text-base ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
                   style={{ width: '100%', display: 'block' }}
                   title="Click to edit description"
                 >
@@ -295,7 +295,8 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2`}
+                  className={`text-base ${selectedStyle.textPlaceholder} cursor-pointer hover:bg-rose-50 hover:border-rose-200 transition-colors duration-200 px-3 pb-1 pt-2 rounded-lg border-2 border-transparent text-left`}
+                  style={{ width: '100%', display: 'block' }}
                 >
                   <span className="border-b-3 border-dotted border-gray-300">
                     {DESCRIPTION_PLACEHOLDER}
