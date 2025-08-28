@@ -243,18 +243,18 @@ export default function Home() {
                   onBlur={() => saveTitle(title)}
                   onKeyPress={(e) => e.key === 'Enter' && saveTitle(title)}
                   className={`text-3xl font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300`}
-                  style={{ width: '100%', maxWidth: '24rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                   placeholder="Enter your title"
                   autoFocus
                 />
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
-                  style={{ width: '320px', display: 'block' }}
+                  className={`text-3xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                  style={{ width: '100%', display: 'block' }}
                   title="Click to edit title"
                 >
-                  {title}
+                  {title.trim() === '' ? 'My Ranked Choice Poll' : title}
                 </h2>
               )}
             </div>
@@ -268,7 +268,7 @@ export default function Home() {
                   onBlur={() => saveDescription(description)}
                   onKeyPress={(e) => e.key === 'Enter' && e.ctrlKey && saveDescription(description)}
                   className={`text-base ${selectedStyle.textSecondary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none`}
-                  style={{ width: '100%', maxWidth: '24rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                   placeholder="Add a description for your poll..."
                   rows={2}
                   autoFocus
@@ -276,8 +276,8 @@ export default function Home() {
               ) : description ? (
                 <p 
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
-                  style={{ width: '320px', display: 'block' }}
+                  className={`text-base ${selectedStyle.textSecondary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200`}
+                  style={{ width: '100%', display: 'block' }}
                   title="Click to edit description"
                 >
                   {description}
@@ -285,7 +285,7 @@ export default function Home() {
               ) : (
                 <button
                   onClick={startDescriptionEditing}
-                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-4 pt-2 border-b-4 border-dotted border-gray-300`}
+                  className={`text-base ${selectedStyle.textPlaceholder} hover:text-rose-500 transition-colors duration-200 px-3 pb-1 pt-2 border-b-3 border-dotted border-gray-300`}
                 >
                   + Add description
                 </button>
