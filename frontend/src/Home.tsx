@@ -77,10 +77,10 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen ${selectedStyle.background}`}>
+    <div id="page" className={`min-h-screen ${selectedStyle.background}`} style={{ width: '100%', maxWidth: '80rem', margin: '0 auto' }}>
       {/* Minimal Header */}
       <header className="border-b border-gray-200/50 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-4">
             <h1 className={`text-xl font-semibold ${selectedStyle.textPrimary}`}>Ranked Choice</h1>
             <div className="flex items-center gap-3">
@@ -98,11 +98,11 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-12 lg:gap-12">
+        <div className="hidden lg:grid lg:grid-cols-12 lg:gap-12" style={{ gridTemplateColumns: 'repeat(12, 1fr)', width: '100%' }}>
           {/* Left Column - Title and Description */}
-          <div className="lg:col-span-5 xl:col-span-4">
+          <div className="lg:col-span-5 xl:col-span-4" style={{ minWidth: 0, maxWidth: 'none', width: '100%' }}>
             <div className="sticky top-24">
               {/* Editable Title */}
               <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
 
           {/* Right Column - Choices */}
-          <div className="lg:col-span-7 xl:col-span-8">
+          <div className="lg:col-span-7 xl:col-span-8" style={{ minWidth: 0, maxWidth: 'none', width: '100%' }}>
             <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 xl:p-12 shadow-xl">
               <h3 className={`text-2xl xl:text-3xl font-semibold ${selectedStyle.textPrimary} mb-8 xl:mb-12`}>
                 Choices
