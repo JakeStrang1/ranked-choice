@@ -121,7 +121,7 @@ export default function Home() {
                 ) : (
                   <h2 
                     onClick={startTitleEditing}
-                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-2 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                    className={`text-4xl xl:text-5xl font-bold ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 ${title.trim() === '' || title.trim() === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
                     style={{ width: '400px', display: 'block' }}
                     title="Click to edit title"
                   >
@@ -250,7 +250,7 @@ export default function Home() {
               ) : (
                 <h2 
                   onClick={startTitleEditing}
-                  className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 rounded-lg px-3 py-2 transition-all duration-200 ${title === 'My Ranked Choice Poll' ? 'border-b-2 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
+                  className={`text-3xl font-bold ${title === 'My Ranked Choice Poll' ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 py-2 transition-all duration-200 ${title === 'My Ranked Choice Poll' ? 'border-b-4 border-dotted border-gray-300' : 'border-2 border-transparent'} hover:border-rose-200`}
                   style={{ width: '320px', display: 'block' }}
                   title="Click to edit title"
                 >
