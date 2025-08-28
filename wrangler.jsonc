@@ -2,7 +2,7 @@
     "name": "ranked-choice",
     "compatibility_date": "2025-08-07",
     "route": {
-        "pattern": "ranked-choice.blurp.ca/*",
+        "pattern": "ranked-choice.blurp.ca",
         "custom_domain": true
     }
 }
