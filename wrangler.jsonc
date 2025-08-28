@@ -4,5 +4,9 @@
     "route": {
         "pattern": "ranked-choice.blurp.ca",
         "custom_domain": true
+    },
+    "assets": {
+        "directory": "./dist/",
+        "not_found_handling": "single-page-application"
     }
 }
