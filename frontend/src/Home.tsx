@@ -6,6 +6,8 @@ interface Choice {
   isEditing: boolean;
 }
 
+// STYLE THEMES - Commented out for future use
+/*
 interface StyleTheme {
   name: string;
   background: string;
@@ -17,17 +19,6 @@ interface StyleTheme {
   borderColor: string;
   focusRing: string;
   buttonHover: string;
-}
-
-interface LayoutStyle {
-  name: string;
-  cardStyle: string;
-  inputStyle: string;
-  buttonStyle: string;
-  spacing: string;
-  shadow: string;
-  borderRadius: string;
-  borderStyle: string;
 }
 
 const styleThemes: StyleTheme[] = [
@@ -116,18 +107,6 @@ const styleThemes: StyleTheme[] = [
     buttonHover: "hover:from-cyan-500 hover:to-blue-600"
   },
   {
-    name: "Rose Garden",
-    background: "bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50",
-    cardBg: "bg-white",
-    primaryGradient: "from-rose-500 to-pink-500",
-    secondaryGradient: "from-rose-400 to-pink-400",
-    textPrimary: "text-gray-800",
-    textSecondary: "text-gray-600",
-    borderColor: "border-rose-300",
-    focusRing: "focus:ring-rose-500",
-    buttonHover: "hover:from-rose-600 hover:to-pink-600"
-  },
-  {
     name: "Mint Fresh",
     background: "bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50",
     cardBg: "bg-emerald-50",
@@ -152,6 +131,20 @@ const styleThemes: StyleTheme[] = [
     buttonHover: "hover:from-gray-700 hover:to-slate-700"
   }
 ];
+*/
+
+// LAYOUT STYLES - Commented out for future use
+/*
+interface LayoutStyle {
+  name: string;
+  cardStyle: string;
+  inputStyle: string;
+  buttonStyle: string;
+  spacing: string;
+  shadow: string;
+  borderRadius: string;
+  borderStyle: string;
+}
 
 const layoutStyles: LayoutStyle[] = [
   {
@@ -167,7 +160,7 @@ const layoutStyles: LayoutStyle[] = [
   {
     name: "Minimal",
     cardStyle: "bg-white/90 backdrop-blur-sm",
-    inputStyle: "border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-blue-500",
+    inputStyle: "border-0 border-b-2 border-gray-200 focus:ring-2 focus:border-blue-500",
     buttonStyle: "shadow-sm hover:shadow-md",
     spacing: "p-8 space-y-8",
     shadow: "shadow-lg",
@@ -183,16 +176,6 @@ const layoutStyles: LayoutStyle[] = [
     shadow: "shadow-xl",
     borderRadius: "rounded-2xl",
     borderStyle: "border-2 border-gray-300"
-  },
-  {
-    name: "Floating",
-    cardStyle: "bg-white/95 backdrop-blur-md",
-    inputStyle: "border-0 bg-gray-50 focus:ring-2 focus:bg-white",
-    buttonStyle: "shadow-xl hover:shadow-2xl transform hover:-translate-y-1",
-    spacing: "p-8 space-y-8",
-    shadow: "shadow-2xl",
-    borderRadius: "rounded-3xl",
-    borderStyle: "border-0"
   },
   {
     name: "Compact",
@@ -235,6 +218,30 @@ const layoutStyles: LayoutStyle[] = [
     borderStyle: "border border-gray-200"
   }
 ];
+*/
+
+// SELECTED STYLE: Rose Garden + Floating
+const selectedStyle = {
+  background: "bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50",
+  cardBg: "bg-white/95 backdrop-blur-md",
+  primaryGradient: "from-rose-500 to-pink-500",
+  secondaryGradient: "from-rose-400 to-pink-400",
+  textPrimary: "text-gray-800",
+  textSecondary: "text-gray-600",
+  borderColor: "border-rose-300",
+  focusRing: "focus:ring-rose-500",
+  buttonHover: "hover:from-rose-600 hover:to-pink-600"
+};
+
+const selectedLayout = {
+  cardStyle: "bg-white/95 backdrop-blur-md",
+  inputStyle: "border-0 bg-gray-50 focus:ring-2 focus:bg-white",
+  buttonStyle: "shadow-xl hover:shadow-2xl transform hover:-translate-y-1",
+  spacing: "p-8 space-y-8",
+  shadow: "shadow-2xl",
+  borderRadius: "rounded-3xl",
+  borderStyle: "border-0"
+};
 
 export default function Home() {
   const [title, setTitle] = useState('My Ranked Choice Poll');
@@ -244,11 +251,6 @@ export default function Home() {
     { id: '2', text: 'Option 2', isEditing: false },
     { id: '3', text: 'Option 3', isEditing: false },
   ]);
-  const [selectedStyle, setSelectedStyle] = useState(0);
-  const [selectedLayout, setSelectedLayout] = useState(0);
-
-  const currentStyle = styleThemes[selectedStyle];
-  const currentLayout = layoutStyles[selectedLayout];
 
   const addChoice = () => {
     const newId = (choices.length + 1).toString();
@@ -274,39 +276,39 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen ${currentStyle.background} p-4`}>
+    <div className={`min-h-screen ${selectedStyle.background} p-4`}>
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8 pt-8">
-          <h1 className={`text-3xl font-bold ${currentStyle.textPrimary} mb-2`}>Ranked Choice</h1>
-          <p className={currentStyle.textSecondary}>Create your poll in seconds</p>
+          <h1 className={`text-3xl font-bold ${selectedStyle.textPrimary} mb-2`}>Ranked Choice</h1>
+          <p className={selectedStyle.textSecondary}>Create your poll in seconds</p>
         </div>
 
         {/* Main Form Card */}
-        <div className={`${currentStyle.cardBg} ${currentLayout.borderRadius} ${currentLayout.shadow} ${currentLayout.spacing} mb-6 ${currentLayout.cardStyle}`}>
+        <div className={`${selectedStyle.cardBg} ${selectedLayout.borderRadius} ${selectedLayout.shadow} ${selectedLayout.spacing} mb-6 ${selectedLayout.cardStyle}`}>
           {/* Title Section */}
           <div>
-            <label className={`block text-sm font-medium ${currentStyle.textPrimary} mb-2`}>
+            <label className={`block text-sm font-medium ${selectedStyle.textPrimary} mb-2`}>
               Poll Title
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className={`w-full px-4 py-3 ${currentLayout.borderRadius} ${currentLayout.inputStyle} ${currentStyle.focusRing} focus:border-transparent transition-all duration-200 text-lg font-medium`}
+              className={`w-full px-4 py-3 ${selectedLayout.borderRadius} ${selectedLayout.inputStyle} ${selectedStyle.focusRing} focus:border-transparent transition-all duration-200 text-lg font-medium`}
               placeholder="Enter poll title..."
             />
           </div>
 
           {/* Description Section */}
           <div>
-            <label className={`block text-sm font-medium ${currentStyle.textPrimary} mb-2`}>
+            <label className={`block text-sm font-medium ${selectedStyle.textPrimary} mb-2`}>
               Description (Optional)
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className={`w-full px-4 py-3 ${currentLayout.borderRadius} ${currentLayout.inputStyle} ${currentStyle.focusRing} focus:border-transparent transition-all duration-200 resize-none`}
+              className={`w-full px-4 py-3 ${selectedLayout.borderRadius} ${selectedLayout.inputStyle} ${selectedStyle.focusRing} focus:border-transparent transition-all duration-200 resize-none`}
               rows={3}
               placeholder="Add a description for your poll..."
             />
@@ -314,13 +316,13 @@ export default function Home() {
 
           {/* Choices Section */}
           <div>
-            <label className={`block text-sm font-medium ${currentStyle.textPrimary} mb-3`}>
+            <label className={`block text-sm font-medium ${selectedStyle.textPrimary} mb-3`}>
               Choices
             </label>
             <div className="space-y-3">
               {choices.map((choice, index) => (
                 <div key={choice.id} className="flex items-center gap-3">
-                  <div className={`flex-shrink-0 w-8 h-8 bg-gradient-to-r ${currentStyle.secondaryGradient} rounded-full flex items-center justify-center text-white font-semibold text-sm`}>
+                  <div className={`flex-shrink-0 w-8 h-8 bg-gradient-to-r ${selectedStyle.secondaryGradient} rounded-full flex items-center justify-center text-white font-semibold text-sm`}>
                     {index + 1}
                   </div>
                   <div className="flex-1">
@@ -331,13 +333,13 @@ export default function Home() {
                         onChange={(e) => updateChoice(choice.id, e.target.value)}
                         onBlur={() => updateChoice(choice.id, choice.text)}
                         onKeyPress={(e) => e.key === 'Enter' && updateChoice(choice.id, choice.text)}
-                        className={`w-full px-3 py-2 ${currentLayout.borderRadius} ${currentLayout.inputStyle} ${currentStyle.focusRing} focus:border-transparent`}
+                        className={`w-full px-3 py-2 ${selectedLayout.borderRadius} ${selectedLayout.inputStyle} ${selectedStyle.focusRing} focus:border-transparent`}
                         autoFocus
                       />
                     ) : (
                       <div
                         onClick={() => startEditing(choice.id)}
-                        className={`px-3 py-2 ${currentLayout.borderRadius} ${currentLayout.borderStyle} hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all duration-200 min-h-[40px] flex items-center`}
+                        className={`px-3 py-2 ${selectedLayout.borderRadius} ${selectedLayout.borderStyle} hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all duration-200 min-h-[40px] flex items-center`}
                       >
                         {choice.text}
                       </div>
@@ -360,7 +362,7 @@ export default function Home() {
             {/* Add Choice Button */}
             <button
               onClick={addChoice}
-              className={`w-full mt-4 px-4 py-3 ${currentLayout.borderRadius} border-2 border-dashed ${currentStyle.borderColor} text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center justify-center gap-2`}
+              className={`w-full mt-4 px-4 py-3 ${selectedLayout.borderRadius} border-2 border-dashed ${selectedStyle.borderColor} text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center justify-center gap-2`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -370,57 +372,14 @@ export default function Home() {
           </div>
 
           {/* Create Poll Button */}
-          <button className={`w-full bg-gradient-to-r ${currentStyle.primaryGradient} text-white py-4 px-6 ${currentLayout.borderRadius} font-semibold text-lg ${currentStyle.buttonHover} transform hover:scale-[1.02] transition-all duration-200 ${currentLayout.buttonStyle}`}>
+          <button className={`w-full bg-gradient-to-r ${selectedStyle.primaryGradient} text-white py-4 px-6 ${selectedLayout.borderRadius} font-semibold text-lg ${selectedStyle.buttonHover} transform hover:scale-[1.02] transition-all duration-200 ${selectedLayout.buttonStyle}`}>
             Create Poll
           </button>
         </div>
 
         {/* Footer Info */}
-        <div className={`text-center ${currentStyle.textSecondary} text-sm mb-8`}>
+        <div className={`text-center ${selectedStyle.textSecondary} text-sm mb-8`}>
           <p>Your poll will be ready to share in seconds</p>
-        </div>
-
-        {/* Style Selectors */}
-        <div className="space-y-4">
-          {/* Color Theme Selector */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-            <h3 className={`text-sm font-medium ${currentStyle.textPrimary} mb-3 text-center`}>Choose Color Theme</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {styleThemes.map((theme, index) => (
-                <button
-                  key={theme.name}
-                  onClick={() => setSelectedStyle(index)}
-                  className={`px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                    selectedStyle === index
-                      ? `bg-gradient-to-r ${theme.primaryGradient} text-white shadow-md`
-                      : `bg-gray-100 text-gray-700 hover:bg-gray-200`
-                  }`}
-                >
-                  {theme.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Layout Style Selector */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-            <h3 className={`text-sm font-medium ${currentStyle.textPrimary} mb-3 text-center`}>Choose Layout Style</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {layoutStyles.map((layout, index) => (
-                <button
-                  key={layout.name}
-                  onClick={() => setSelectedLayout(index)}
-                  className={`px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                    selectedLayout === index
-                      ? `bg-gradient-to-r ${currentStyle.primaryGradient} text-white shadow-md`
-                      : `bg-gray-100 text-gray-700 hover:bg-gray-200`
-                  }`}
-                >
-                  {layout.name}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
