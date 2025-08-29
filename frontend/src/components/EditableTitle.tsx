@@ -11,6 +11,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   TITLE_PLACEHOLDER
 }) => {
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
+  const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
   const sizeTesterRef = useRef<HTMLHeadingElement>(null);
 
   // Calculate line count and adjust font size
@@ -20,11 +21,16 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
       const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
       const scrollHeight = element.scrollHeight;
       const lineCount = Math.floor(scrollHeight / lineHeight);
+      
+      // Store the height for margin calculation
+      setSizeTesterHeight(scrollHeight);
+      
       // Switch to small font if 3 or more lines
       setFontSize(lineCount >= 3 ? 'small' : 'large');
     } else {
       // Default to large font for empty/placeholder text
       setFontSize('large');
+      setSizeTesterHeight(0);
     }
   }, [title, TITLE_PLACEHOLDER]);
 
@@ -94,12 +100,12 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
         ref={sizeTesterRef}
         className={`size-tester font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
         style={{ 
-          // visibility: 'hidden',
+          visibility: 'hidden',
           width: '100%',
           maxWidth: 'inherit',
           fontSize: 'clamp(1.875rem, 4vw, 2.25rem)',
           lineHeight: '1.2',
-          marginBottom: '-100%',
+          marginTop: `-${sizeTesterHeight}px`,
           padding: '0.5rem 0.75rem 1rem 0.75rem'
         }}
       >
