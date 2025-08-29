@@ -53,6 +53,20 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
     }
   }, [isTitleEditing]);
 
+  // Re-measure height when viewport size changes
+  useEffect(() => {
+    const handleResize = () => {
+      if (sizeTesterRef.current) {
+        const element = sizeTesterRef.current;
+        const scrollHeight = element.scrollHeight;
+        setSizeTesterHeight(scrollHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const startTitleEditing = () => {
     setIsTitleEditing(true);
     if (title.trim() === '' || title.trim() === TITLE_PLACEHOLDER) {
