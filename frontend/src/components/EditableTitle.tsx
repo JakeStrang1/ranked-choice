@@ -8,8 +8,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   isTitleEditing,
   setIsTitleEditing,
   setTextareaRef,
-  TITLE_PLACEHOLDER,
-  TITLE_FONT_SHRINK_THRESHOLD
+  TITLE_PLACEHOLDER
 }) => {
   const startTitleEditing = () => {
     setIsTitleEditing(true);
@@ -35,8 +34,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
         style={{ 
           width: '100%', 
           boxSizing: 'border-box',
-          fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? 
-            'clamp(1.25rem, 2.5vw, 1.5rem)' : 'clamp(1.875rem, 4vw, 2.25rem)',
+          fontSize: 'clamp(1.875rem, 4vw, 2.25rem)',
           minHeight: 'clamp(2.5rem, 5vw, 3rem)',
           lineHeight: '1.2'
         }}
@@ -53,19 +51,33 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   }
 
   return (
-    <h2 
-      onClick={startTitleEditing}
-      className={`font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
-      style={{ 
-        display: 'block',
-        fontSize: title.length >= TITLE_FONT_SHRINK_THRESHOLD ? 
-          'clamp(1.25rem, 2.5vw, 1.5rem)' : 'clamp(1.875rem, 4vw, 2.25rem)'
-      }}
-      title="Click to edit title"
-    >
-      <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
-        {title.trim() === '' ? TITLE_PLACEHOLDER : title}
-      </span>
-    </h2>
+    <>
+      <h2 
+        onClick={startTitleEditing}
+        className={`font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
+        style={{ 
+          display: 'block',
+          fontSize: 'clamp(1.875rem, 4vw, 2.25rem)'
+        }}
+        title="Click to edit title"
+      >
+        <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+          {title.trim() === '' ? TITLE_PLACEHOLDER : title}
+        </span>
+      </h2>
+      <h2 
+        onClick={startTitleEditing}
+        className={`size-tester font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
+        style={{ 
+          display: 'block',
+          fontSize: 'clamp(1.875rem, 4vw, 2.25rem)'
+        }}
+        title="Click to edit title"
+      >
+        <span className={`${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+          {title.trim() === '' ? TITLE_PLACEHOLDER : title}
+        </span>
+      </h2>
+    </>
   );
 };

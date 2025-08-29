@@ -11,7 +11,6 @@ export interface EditableTitleProps {
   setIsTitleEditing: (editing: boolean) => void;
   setTextareaRef: (node: HTMLTextAreaElement | null) => void;
   TITLE_PLACEHOLDER: string;
-  TITLE_FONT_SHRINK_THRESHOLD: number;
 }
 
 export interface EditableDescriptionProps {

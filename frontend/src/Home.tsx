@@ -7,7 +7,6 @@ export default function Home() {
   // Placeholder text constants
   const TITLE_PLACEHOLDER = '+ Add a title';
   const DESCRIPTION_PLACEHOLDER = '+ Add a description';
-  const TITLE_FONT_SHRINK_THRESHOLD = 30;
   
   const [title, setTitle] = useState(TITLE_PLACEHOLDER);
   const [description, setDescription] = useState('');
@@ -71,7 +70,6 @@ export default function Home() {
                   setIsTitleEditing={setIsTitleEditing}
                   setTextareaRef={setTextareaRef}
                   TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
-                  TITLE_FONT_SHRINK_THRESHOLD={TITLE_FONT_SHRINK_THRESHOLD}
                 />
               </div>
 
@@ -118,7 +116,6 @@ export default function Home() {
                 setIsTitleEditing={setIsTitleEditing}
                 setTextareaRef={setTextareaRef}
                 TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
-                TITLE_FONT_SHRINK_THRESHOLD={TITLE_FONT_SHRINK_THRESHOLD}
               />
             </div>
 
