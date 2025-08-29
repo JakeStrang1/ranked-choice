@@ -78,6 +78,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
             fontSize: fontSize === 'large' 
               ? 'clamp(1.875rem, 4vw, 2.25rem)' 
               : 'clamp(1.25rem, 2.5vw, 1.5rem)',
+            lineHeight: '1.2',
             transition: 'font-size 0.2s ease-in-out'
           }}
           title="Click to edit title"
@@ -93,12 +94,12 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
         ref={sizeTesterRef}
         className={`size-tester font-bold ${title.trim() === '' || title.trim() === TITLE_PLACEHOLDER ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
         style={{ 
-          visibility: 'hidden',
+          // visibility: 'hidden',
           width: '100%',
           maxWidth: 'inherit',
           fontSize: 'clamp(1.875rem, 4vw, 2.25rem)',
           lineHeight: '1.2',
-          margin: 0,
+          marginBottom: '-100%',
           padding: '0.5rem 0.75rem 1rem 0.75rem'
         }}
       >
