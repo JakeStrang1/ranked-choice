@@ -43,6 +43,15 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
     }
   }, []); // Empty dependency array = runs only on mount
 
+  // Re-measure height when editing state changes
+  useEffect(() => {
+    if (sizeTesterRef.current) {
+      const element = sizeTesterRef.current;
+      const scrollHeight = element.scrollHeight;
+      setSizeTesterHeight(scrollHeight);
+    }
+  }, [isTitleEditing]);
+
   const startTitleEditing = () => {
     setIsTitleEditing(true);
     if (title.trim() === '' || title.trim() === TITLE_PLACEHOLDER) {
