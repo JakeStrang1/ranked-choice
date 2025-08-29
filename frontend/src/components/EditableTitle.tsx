@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { EditableTitleProps } from '../types/poll';
 import { selectedStyle } from '../styles/theme';
+import { TITLE_FONT_LARGE, TITLE_FONT_SMALL, TITLE_LINE_COUNT_THRESHOLD } from '../constants/poll';
 
 export const EditableTitle: React.FC<EditableTitleProps> = ({
   title,
@@ -25,8 +26,8 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
       // Store the height for margin calculation
       setSizeTesterHeight(scrollHeight);
       
-      // Switch to small font if 3 or more lines
-      setFontSize(lineCount >= 3 ? 'small' : 'large');
+      // Switch to small font if threshold or more lines
+      setFontSize(lineCount >= TITLE_LINE_COUNT_THRESHOLD ? 'small' : 'large');
     } else {
       // Default to large font for empty/placeholder text
       setFontSize('large');
@@ -74,16 +75,16 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
           onBlur={() => saveTitle(title)}
           onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveTitle(title)}
           className={`font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
-          style={{ 
-            width: '100%', 
-            boxSizing: 'border-box',
-            fontSize: fontSize === 'large' 
-              ? 'clamp(1.875rem, 4vw, 2.25rem)' 
-              : 'clamp(1.25rem, 2.5vw, 1.5rem)',
-            minHeight: 'clamp(2.5rem, 5vw, 3rem)',
-            lineHeight: '1.2',
-            transition: 'font-size 0.2s ease-in-out'
-          }}
+                  style={{ 
+          width: '100%', 
+          boxSizing: 'border-box',
+          fontSize: fontSize === 'large' 
+            ? TITLE_FONT_LARGE 
+            : TITLE_FONT_SMALL,
+          minHeight: 'clamp(2.5rem, 5vw, 3rem)',
+          lineHeight: '1.2',
+          transition: 'font-size 0.2s ease-in-out'
+        }}
           placeholder="Enter your title"
           rows={1}
           autoFocus
@@ -100,8 +101,8 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
           style={{ 
             display: 'block',
             fontSize: fontSize === 'large' 
-              ? 'clamp(1.875rem, 4vw, 2.25rem)' 
-              : 'clamp(1.25rem, 2.5vw, 1.5rem)',
+              ? TITLE_FONT_LARGE 
+              : TITLE_FONT_SMALL,
             lineHeight: '1.2',
             transition: 'font-size 0.2s ease-in-out'
           }}
@@ -121,7 +122,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
           visibility: 'hidden',
           width: '100%',
           maxWidth: 'inherit',
-          fontSize: 'clamp(1.875rem, 4vw, 2.25rem)',
+          fontSize: TITLE_FONT_LARGE,
           lineHeight: '1.2',
           marginTop: `-${sizeTesterHeight}px`,
           padding: '0.5rem 0.75rem 1rem 0.75rem'
