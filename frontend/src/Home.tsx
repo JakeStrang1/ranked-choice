@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Choice } from './types/poll';
 import { selectedStyle } from './styles/theme';
-import { EditableTitle, EditableDescription, Header, ChoicesSection } from './components';
+import { EditableText, EditableDescription, Header, ChoicesSection } from './components';
 
 export default function Home() {
   // Placeholder text constants
@@ -56,12 +56,12 @@ export default function Home() {
             <div className="sticky top-24">
               {/* Editable Title */}
               <div className="mb-4 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
-                <EditableTitle
-                  title={title}
-                  setTitle={setTitle}
-                  isTitleEditing={isTitleEditing}
-                  setIsTitleEditing={setIsTitleEditing}
-                  TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
+                <EditableText
+                  value={title}
+                  setValue={setTitle}
+                  isValueEditing={isTitleEditing}
+                  setIsValueEditing={setIsTitleEditing}
+                  placeholder={TITLE_PLACEHOLDER}
                 />
               </div>
 
@@ -101,12 +101,12 @@ export default function Home() {
           <div className="max-w-2xl mx-auto">
             {/* Editable Title */}
             <div className="mb-2 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
-              <EditableTitle
-                title={title}
-                setTitle={setTitle}
-                isTitleEditing={isTitleEditing}
-                setIsTitleEditing={setIsTitleEditing}
-                TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
+              <EditableText
+                value={title}
+                setValue={setTitle}
+                isValueEditing={isTitleEditing}
+                setIsValueEditing={setIsTitleEditing}
+                placeholder={TITLE_PLACEHOLDER}
               />
             </div>
 

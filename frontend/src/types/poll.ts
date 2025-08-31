@@ -12,6 +12,21 @@ export interface EditableTitleProps {
   TITLE_PLACEHOLDER: string;
 }
 
+export interface EditableTextProps {
+  value: string;
+  setValue: (title: string) => void;
+  isValueEditing: boolean;
+  setIsValueEditing: (editing: boolean) => void;
+  placeholder: string;
+  dualFontSize?: null | DualFontSizeProps;
+}
+
+export interface DualFontSizeProps {
+  largeFontSize: string;
+  smallFontSize: string;
+  linesThreshold: number; // number of lines to switch to small font size
+}
+
 export interface EditableDescriptionProps {
   description: string;
   setDescription: (description: string) => void;
