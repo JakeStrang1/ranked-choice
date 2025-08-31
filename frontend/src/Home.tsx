@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import type { Choice } from './types/poll';
 import { selectedStyle } from './styles/theme';
 import { EditableTitle, EditableDescription, Header, ChoicesSection } from './components';
@@ -18,14 +18,7 @@ export default function Home() {
   const [isTitleEditing, setIsTitleEditing] = useState(false);
   const [isDescriptionEditing, setIsDescriptionEditing] = useState(false);
 
-  // Callback ref to set height when textarea is mounted
-  const setTextareaRef = useCallback((node: HTMLTextAreaElement | null) => {
-    if (node) {
-      // Set height immediately when textarea is mounted
-      node.style.height = 'auto';
-      node.style.height = node.scrollHeight + 'px';
-    }
-  }, []);
+
 
   const addChoice = () => {
     const newId = (choices.length + 1).toString();
@@ -68,7 +61,6 @@ export default function Home() {
                   setTitle={setTitle}
                   isTitleEditing={isTitleEditing}
                   setIsTitleEditing={setIsTitleEditing}
-                  setTextareaRef={setTextareaRef}
                   TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
                 />
               </div>
@@ -114,7 +106,6 @@ export default function Home() {
                 setTitle={setTitle}
                 isTitleEditing={isTitleEditing}
                 setIsTitleEditing={setIsTitleEditing}
-                setTextareaRef={setTextareaRef}
                 TITLE_PLACEHOLDER={TITLE_PLACEHOLDER}
               />
             </div>

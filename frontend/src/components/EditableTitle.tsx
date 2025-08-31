@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { EditableTitleProps } from '../types/poll';
 import { selectedStyle } from '../styles/theme';
 import { TITLE_FONT_LARGE, TITLE_FONT_SMALL, TITLE_LINE_COUNT_THRESHOLD } from '../constants/poll';
@@ -8,12 +8,20 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   setTitle,
   isTitleEditing,
   setIsTitleEditing,
-  setTextareaRef,
   TITLE_PLACEHOLDER
 }) => {
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
   const sizeTesterRef = useRef<HTMLHeadingElement>(null);
+  
+  // Callback ref to set height when textarea is mounted
+  const setTextareaRef = useCallback((node: HTMLTextAreaElement | null) => {
+    if (node) {
+      // Set height immediately when textarea is mounted
+      node.style.height = 'auto';
+      node.style.height = node.scrollHeight + 'px';
+    }
+  }, []);
 
   // Calculate line count and adjust font size
   useEffect(() => {

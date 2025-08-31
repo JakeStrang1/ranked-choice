@@ -9,7 +9,6 @@ export interface EditableTitleProps {
   setTitle: (title: string) => void;
   isTitleEditing: boolean;
   setIsTitleEditing: (editing: boolean) => void;
-  setTextareaRef: (node: HTMLTextAreaElement | null) => void;
   TITLE_PLACEHOLDER: string;
 }
 
