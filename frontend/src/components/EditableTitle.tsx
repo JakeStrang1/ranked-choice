@@ -59,7 +59,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   }, []);
 
   const updateState = () => {
-    if (sizeTesterRef.current && title.trim() !== '' && title.trim() !== TITLE_PLACEHOLDER) {
+    if (sizeTesterRef.current) {
       const element = sizeTesterRef.current;
       const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
       const scrollHeight = element.scrollHeight;

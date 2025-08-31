@@ -8,7 +8,7 @@ export default function Home() {
   const TITLE_PLACEHOLDER = '+ Add a title';
   const DESCRIPTION_PLACEHOLDER = '+ Add a description';
   
-  const [title, setTitle] = useState(TITLE_PLACEHOLDER);
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [choices, setChoices] = useState<Choice[]>([
     { id: '1', text: 'Option 1', isEditing: false },
