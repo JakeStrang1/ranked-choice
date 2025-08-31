@@ -13,10 +13,12 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
   const sizeTesterRef = useRef<HTMLHeadingElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   // Callback ref to set height when textarea is mounted
   const setTextareaRef = useCallback((node: HTMLTextAreaElement | null) => {
     if (node) {
+      textareaRef.current = node;
       // Set height immediately when textarea is mounted
       node.style.height = 'auto';
       node.style.height = node.scrollHeight + 'px';
@@ -35,7 +37,25 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
       setSizeTesterHeight(scrollHeight);
       
       // Switch to small font if threshold or more lines
-      setFontSize(lineCount >= TITLE_LINE_COUNT_THRESHOLD ? 'small' : 'large');
+      const newFontSize = lineCount >= TITLE_LINE_COUNT_THRESHOLD ? 'small' : 'large';
+      setFontSize(newFontSize);
+
+      // Make sure the textarea adjusts automatically to the appropriate height
+      if (newFontSize !== fontSize) {
+        if (newFontSize === 'small') {
+          setTimeout(() => {
+            if (textareaRef.current) {
+              textareaRef.current.style.height = 'auto'; // Apparently this line is necessary
+              textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+            }
+          }, 250);
+        } else {
+          if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = element.scrollHeight + 'px';
+          }
+        }
+      }
     } else {
       // Default to large font for empty/placeholder text
       setFontSize('large');
