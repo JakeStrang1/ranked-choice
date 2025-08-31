@@ -19,6 +19,9 @@ export interface EditableTextProps {
   setIsValueEditing: (editing: boolean) => void;
   placeholder: string;
   dualFontSize?: null | DualFontSizeProps;
+  textPrimaryClass?: string;
+  textPlaceholderClass?: string;
+  focusRingClass?: string;
 }
 
 export interface DualFontSizeProps {

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { EditableTextProps } from '../types/poll';
-import { selectedStyle } from '../styles/theme';
 
 
 export const EditableText: React.FC<EditableTextProps> = ({
@@ -9,7 +8,10 @@ export const EditableText: React.FC<EditableTextProps> = ({
   isValueEditing,
   setIsValueEditing,
   placeholder,
-  dualFontSize
+  dualFontSize,
+  textPrimaryClass = 'text-gray-900',
+  textPlaceholderClass = 'text-gray-500',
+  focusRingClass = 'focus:ring-2 focus:ring-rose-300'
 }) => {
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
@@ -123,7 +125,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
           onChange={(e) => setValue(e.target.value)}
           onBlur={() => saveValue(value)}
           onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveValue(value)}
-          className={`font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
+          className={`font-bold ${textPrimaryClass} bg-transparent focus:outline-none ${focusRingClass} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
                            style={{ 
            width: '100%', 
            boxSizing: 'border-box',
@@ -145,7 +147,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
       ) : (
         <h2 
           onClick={startTitleEditing}
-          className={`font-bold ${value.trim() === '' || value.trim() === placeholder ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
+          className={`font-bold ${value.trim() === '' || value.trim() === placeholder ? textPlaceholderClass : textPrimaryClass} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
                      style={{ 
              display: 'block',
              fontSize: dualFontSize 
@@ -166,7 +168,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
       {dualFontSize && (
         <h2 
           ref={sizeTesterRef}
-          className={`size-tester font-bold ${value.trim() === '' || value.trim() === placeholder ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
+          className={`size-tester font-bold ${value.trim() === '' || value.trim() === placeholder ? textPlaceholderClass : textPrimaryClass} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
           style={{ 
             visibility: 'hidden',
             width: '100%',
