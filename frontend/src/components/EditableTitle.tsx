@@ -27,6 +27,38 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
 
   // Calculate line count and adjust font size
   useEffect(() => {
+    updateState();
+  }, [title, TITLE_PLACEHOLDER]);
+
+  // Measure initial height when component mounts
+  useEffect(() => {
+    if (sizeTesterRef.current) {
+      const element = sizeTesterRef.current;
+      const scrollHeight = element.scrollHeight;
+      setSizeTesterHeight(scrollHeight);
+    }
+  }, []); // Empty dependency array = runs only on mount
+
+  // Re-measure height when editing state changes
+  useEffect(() => {
+    if (sizeTesterRef.current) {
+      const element = sizeTesterRef.current;
+      const scrollHeight = element.scrollHeight;
+      setSizeTesterHeight(scrollHeight);
+    }
+  }, [isTitleEditing]);
+
+  // Re-measure height when viewport size changes
+  useEffect(() => {
+    const handleResize = () => {
+      updateState();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const updateState = () => {
     if (sizeTesterRef.current && title.trim() !== '' && title.trim() !== TITLE_PLACEHOLDER) {
       const element = sizeTesterRef.current;
       const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
@@ -61,39 +93,7 @@ export const EditableTitle: React.FC<EditableTitleProps> = ({
       setFontSize('large');
       setSizeTesterHeight(0);
     }
-  }, [title, TITLE_PLACEHOLDER]);
-
-  // Measure initial height when component mounts
-  useEffect(() => {
-    if (sizeTesterRef.current) {
-      const element = sizeTesterRef.current;
-      const scrollHeight = element.scrollHeight;
-      setSizeTesterHeight(scrollHeight);
-    }
-  }, []); // Empty dependency array = runs only on mount
-
-  // Re-measure height when editing state changes
-  useEffect(() => {
-    if (sizeTesterRef.current) {
-      const element = sizeTesterRef.current;
-      const scrollHeight = element.scrollHeight;
-      setSizeTesterHeight(scrollHeight);
-    }
-  }, [isTitleEditing]);
-
-  // Re-measure height when viewport size changes
-  useEffect(() => {
-    const handleResize = () => {
-      if (sizeTesterRef.current) {
-        const element = sizeTesterRef.current;
-        const scrollHeight = element.scrollHeight;
-        setSizeTesterHeight(scrollHeight);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }
 
   const startTitleEditing = () => {
     setIsTitleEditing(true);
