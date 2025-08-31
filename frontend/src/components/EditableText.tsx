@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { EditableTextProps } from '../types/poll';
 import { selectedStyle } from '../styles/theme';
-import { TITLE_FONT_LARGE, TITLE_FONT_SMALL, TITLE_LINE_COUNT_THRESHOLD } from '../constants/poll';
+
 
 export const EditableText: React.FC<EditableTextProps> = ({
   value,
   setValue,
   isValueEditing,
   setIsValueEditing,
-  placeholder
+  placeholder,
+  dualFontSize
 }) => {
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
@@ -58,7 +59,12 @@ export const EditableText: React.FC<EditableTextProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const updateState = () => {
+    const updateState = () => {
+    // Only do dynamic font sizing if dualFontSize is provided
+    if (!dualFontSize) {
+      return;
+    }
+
     if (sizeTesterRef.current) {
       const element = sizeTesterRef.current;
       const lineHeight = parseFloat(getComputedStyle(element).lineHeight);
@@ -69,7 +75,8 @@ export const EditableText: React.FC<EditableTextProps> = ({
       setSizeTesterHeight(scrollHeight);
       
       // Switch to small font if threshold or more lines
-      const newFontSize = lineCount >= TITLE_LINE_COUNT_THRESHOLD ? 'small' : 'large';
+      const threshold = dualFontSize.linesThreshold;
+      const newFontSize = lineCount >= threshold ? 'small' : 'large';
       setFontSize(newFontSize);
 
       // Make sure the textarea adjusts automatically to the appropriate height
@@ -117,16 +124,15 @@ export const EditableText: React.FC<EditableTextProps> = ({
           onBlur={() => saveValue(value)}
           onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveValue(value)}
           className={`font-bold ${selectedStyle.textPrimary} bg-transparent focus:outline-none ${selectedStyle.focusRing} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
-                  style={{ 
-          width: '100%', 
-          boxSizing: 'border-box',
-          fontSize: fontSize === 'large' 
-            ? TITLE_FONT_LARGE 
-            : TITLE_FONT_SMALL,
-          minHeight: 'clamp(2.5rem, 5vw, 3rem)',
-          lineHeight: '1.2',
-          transition: 'font-size 0.2s ease-in-out'
-        }}
+                           style={{ 
+           width: '100%', 
+           boxSizing: 'border-box',
+           fontSize: dualFontSize 
+             ? (fontSize === 'large' ? dualFontSize.largeFontSize : dualFontSize.smallFontSize)
+             : undefined,
+
+           transition: 'font-size 0.2s ease-in-out'
+         }}
           placeholder="Enter your title"
           rows={1}
           autoFocus
@@ -140,14 +146,14 @@ export const EditableText: React.FC<EditableTextProps> = ({
         <h2 
           onClick={startTitleEditing}
           className={`font-bold ${value.trim() === '' || value.trim() === placeholder ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} cursor-pointer hover:bg-rose-50 px-3 pb-4 pt-2 transition-all duration-200 border-2 border-transparent hover:border-rose-200 rounded-lg`}
-          style={{ 
-            display: 'block',
-            fontSize: fontSize === 'large' 
-              ? TITLE_FONT_LARGE 
-              : TITLE_FONT_SMALL,
-            lineHeight: '1.2',
-            transition: 'font-size 0.2s ease-in-out'
-          }}
+                     style={{ 
+             display: 'block',
+             fontSize: dualFontSize 
+               ? (fontSize === 'large' ? dualFontSize.largeFontSize : dualFontSize.smallFontSize)
+               : undefined,
+
+             transition: 'font-size 0.2s ease-in-out'
+           }}
           title="Click to edit title"
         >
           <span className={`${value.trim() === '' || value.trim() === placeholder ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
@@ -156,24 +162,26 @@ export const EditableText: React.FC<EditableTextProps> = ({
         </h2>
       )}
       
-      {/* Always render size-tester for measurement, regardless of editing state */}
-      <h2 
-        ref={sizeTesterRef}
-        className={`size-tester font-bold ${value.trim() === '' || value.trim() === placeholder ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
-        style={{ 
-          visibility: 'hidden',
-          width: '100%',
-          maxWidth: 'inherit',
-          fontSize: TITLE_FONT_LARGE,
-          lineHeight: '1.2',
-          marginTop: `-${sizeTesterHeight}px`,
-          padding: '0.5rem 0.75rem 1rem 0.75rem'
-        }}
-      >
-        <span className={`${value.trim() === '' || value.trim() === placeholder ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
-          {value.trim() === '' ? placeholder : value}
-        </span>
-      </h2>
+            {/* Only render size-tester for measurement when dualFontSize is provided */}
+      {dualFontSize && (
+        <h2 
+          ref={sizeTesterRef}
+          className={`size-tester font-bold ${value.trim() === '' || value.trim() === placeholder ? selectedStyle.textPlaceholder : selectedStyle.textPrimary} px-3 pb-4 pt-2 border-2 border-transparent rounded-lg`}
+          style={{ 
+            visibility: 'hidden',
+            width: '100%',
+            maxWidth: 'inherit',
+            fontSize: dualFontSize.largeFontSize,
+ 
+            marginTop: `-${sizeTesterHeight}px`,
+            padding: '0.5rem 0.75rem 1rem 0.75rem'
+          }}
+        >
+          <span className={`${value.trim() === '' || value.trim() === placeholder ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+            {value.trim() === '' ? placeholder : value}
+          </span>
+        </h2>
+      )}
     </>
   );
 };

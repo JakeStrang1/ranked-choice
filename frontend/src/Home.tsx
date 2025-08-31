@@ -62,6 +62,11 @@ export default function Home() {
                   isValueEditing={isTitleEditing}
                   setIsValueEditing={setIsTitleEditing}
                   placeholder={TITLE_PLACEHOLDER}
+                  dualFontSize={{
+                    largeFontSize: 'clamp(2rem, 4vw, 3rem)',
+                    smallFontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                    linesThreshold: 4
+                  }}
                 />
               </div>
 
@@ -107,6 +112,11 @@ export default function Home() {
                 isValueEditing={isTitleEditing}
                 setIsValueEditing={setIsTitleEditing}
                 placeholder={TITLE_PLACEHOLDER}
+                dualFontSize={{
+                  largeFontSize: 'clamp(2rem, 4vw, 3rem)',
+                  smallFontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                  linesThreshold: 4
+                }}
               />
             </div>
 
