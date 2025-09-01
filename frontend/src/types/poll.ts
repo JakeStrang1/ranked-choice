@@ -23,6 +23,7 @@ export interface EditableTextProps {
   textPlaceholderClass?: string;
   focusRingClass?: string;
   showDottedBorder?: boolean;
+  bold?: boolean;
 }
 
 export interface DualFontSizeProps {
