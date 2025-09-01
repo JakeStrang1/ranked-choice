@@ -15,6 +15,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
   showDottedBorder = false,
   bold = false
 }) => {
+  const DOTTED_BORDER_THICKNESS = '0.15em';
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
   const sizeTesterRef = useRef<HTMLHeadingElement>(null);
@@ -164,7 +165,12 @@ export const EditableText: React.FC<EditableTextProps> = ({
            }}
           title="Click to edit title"
         >
-          <span className={`${showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+          <span 
+            className={`${showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? 'border-b border-dotted border-gray-300' : ''}`}
+            style={{
+              borderBottomWidth: showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? DOTTED_BORDER_THICKNESS : undefined
+            }}
+          >
             {value.trim() === '' ? placeholder : value}
           </span>
         </h2>
@@ -187,7 +193,12 @@ export const EditableText: React.FC<EditableTextProps> = ({
             padding: '0.5rem 0.75rem 1rem 0.75rem'
           }}
         >
-          <span className={`${showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? 'border-b-4 border-dotted border-gray-300' : ''}`}>
+          <span 
+            className={`${showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? 'border-b border-dotted border-gray-300' : ''}`}
+            style={{
+              borderBottomWidth: showDottedBorder && (value.trim() === '' || value.trim() === placeholder) ? DOTTED_BORDER_THICKNESS : undefined
+            }}
+          >
             {value.trim() === '' ? placeholder : value}
           </span>
         </h2>
