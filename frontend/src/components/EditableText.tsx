@@ -13,7 +13,8 @@ export const EditableText: React.FC<EditableTextProps> = ({
   textPlaceholderClass = '',
   focusRingClass = '',
   showDottedBorder = false,
-  bold = false
+  bold = false,
+  editingPlaceholder = placeholder
 }) => {
   const DOTTED_BORDER_THICKNESS = '0.15em';
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
@@ -140,7 +141,7 @@ export const EditableText: React.FC<EditableTextProps> = ({
            outline: focusRingClass ? undefined : '2px solid #fda4af', // rose-300 default
            outlineOffset: focusRingClass ? undefined : '2px'
          }}
-          placeholder="Enter your title"
+          placeholder={editingPlaceholder}
           rows={1}
           autoFocus
           onInput={(e) => {

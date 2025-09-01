@@ -24,6 +24,7 @@ export interface EditableTextProps {
   focusRingClass?: string;
   showDottedBorder?: boolean;
   bold?: boolean;
+  editingPlaceholder?: string;
 }
 
 export interface DualFontSizeProps {

@@ -7,6 +7,8 @@ export default function Home() {
   // Placeholder text constants
   const TITLE_PLACEHOLDER = '+ Add a title';
   const DESCRIPTION_PLACEHOLDER = '+ Add a description';
+  const TITLE_EDITING_PLACEHOLDER = 'Enter your title';
+  const DESCRIPTION_EDITING_PLACEHOLDER = 'Enter your description';
   
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -72,6 +74,7 @@ export default function Home() {
                   focusRingClass={selectedStyle.focusRing}
                   showDottedBorder={true}
                   bold={true}
+                  editingPlaceholder={TITLE_EDITING_PLACEHOLDER}
                 />
               </div>
 
@@ -87,6 +90,7 @@ export default function Home() {
                   textPlaceholderClass={selectedStyle.textPlaceholder}
                   focusRingClass={selectedStyle.focusRing}
                   showDottedBorder={true}
+                  editingPlaceholder={DESCRIPTION_EDITING_PLACEHOLDER}
                 />
               </div>
 
@@ -131,6 +135,7 @@ export default function Home() {
                 focusRingClass={selectedStyle.focusRing}
                 showDottedBorder={true}
                 bold={true}
+                editingPlaceholder={TITLE_EDITING_PLACEHOLDER}
               />
             </div>
 
@@ -146,6 +151,7 @@ export default function Home() {
                 textPlaceholderClass={selectedStyle.textPlaceholder}
                 focusRingClass={selectedStyle.focusRing}
                 showDottedBorder={true}
+                editingPlaceholder={DESCRIPTION_EDITING_PLACEHOLDER}
               />
             </div>
 
