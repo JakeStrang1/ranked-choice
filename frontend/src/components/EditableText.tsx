@@ -9,9 +9,9 @@ export const EditableText: React.FC<EditableTextProps> = ({
   setIsValueEditing,
   placeholder,
   dualFontSize,
-  textPrimaryClass = 'text-gray-900',
-  textPlaceholderClass = 'text-gray-500',
-  focusRingClass = 'focus:ring-2 focus:ring-rose-300'
+  textPrimaryClass = '',
+  textPlaceholderClass = '',
+  focusRingClass = ''
 }) => {
   const [fontSize, setFontSize] = useState<'large' | 'small'>('large');
   const [sizeTesterHeight, setSizeTesterHeight] = useState<number>(0);
@@ -125,15 +125,17 @@ export const EditableText: React.FC<EditableTextProps> = ({
           onChange={(e) => setValue(e.target.value)}
           onBlur={() => saveValue(value)}
           onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && saveValue(value)}
-          className={`font-bold ${textPrimaryClass} bg-transparent focus:outline-none ${focusRingClass} rounded-lg px-3 py-2 border-2 border-transparent focus:border-rose-300 resize-none overflow-hidden`}
+          className={`font-bold ${textPrimaryClass} bg-transparent focus:outline-none ${focusRingClass} rounded-lg px-3 py-2 border-2 border-transparent resize-none overflow-hidden`}
                            style={{ 
            width: '100%', 
            boxSizing: 'border-box',
            fontSize: dualFontSize 
              ? (fontSize === 'large' ? dualFontSize.largeFontSize : dualFontSize.smallFontSize)
              : undefined,
-
-           transition: 'font-size 0.2s ease-in-out'
+           transition: 'font-size 0.2s ease-in-out',
+           color: textPrimaryClass ? undefined : '#111827', // gray-900 default
+           outline: focusRingClass ? undefined : '2px solid #fda4af', // rose-300 default
+           outlineOffset: focusRingClass ? undefined : '2px'
          }}
           placeholder="Enter your title"
           rows={1}
@@ -153,8 +155,10 @@ export const EditableText: React.FC<EditableTextProps> = ({
              fontSize: dualFontSize 
                ? (fontSize === 'large' ? dualFontSize.largeFontSize : dualFontSize.smallFontSize)
                : undefined,
-
-             transition: 'font-size 0.2s ease-in-out'
+             transition: 'font-size 0.2s ease-in-out',
+             color: value.trim() === '' || value.trim() === placeholder 
+               ? (textPlaceholderClass ? undefined : '#6b7280') // gray-500 default
+               : (textPrimaryClass ? undefined : '#111827') // gray-900 default
            }}
           title="Click to edit title"
         >
@@ -174,8 +178,10 @@ export const EditableText: React.FC<EditableTextProps> = ({
             width: '100%',
             maxWidth: 'inherit',
             fontSize: dualFontSize.largeFontSize,
- 
             marginTop: `-${sizeTesterHeight}px`,
+            color: value.trim() === '' || value.trim() === placeholder 
+              ? (textPlaceholderClass ? undefined : '#6b7280') // gray-500 default
+              : (textPrimaryClass ? undefined : '#111827'), // gray-900 default
             padding: '0.5rem 0.75rem 1rem 0.75rem'
           }}
         >
