@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Choice } from './types/poll';
 import { selectedStyle } from './styles/theme';
-import { EditableText, EditableDescription, Header, ChoicesSection } from './components';
+import { EditableText, Header, ChoicesSection } from './components';
 
 export default function Home() {
   // Placeholder text constants
@@ -73,12 +73,16 @@ export default function Home() {
 
               {/* Editable Description */}
               <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
-                <EditableDescription
-                  description={description}
-                  setDescription={setDescription}
-                  isDescriptionEditing={isDescriptionEditing}
-                  setIsDescriptionEditing={setIsDescriptionEditing}
-                  DESCRIPTION_PLACEHOLDER={DESCRIPTION_PLACEHOLDER}
+                <EditableText
+                  value={description}
+                  setValue={setDescription}
+                  isValueEditing={isDescriptionEditing}
+                  setIsValueEditing={setIsDescriptionEditing}
+                  placeholder={DESCRIPTION_PLACEHOLDER}
+                  textPrimaryClass={selectedStyle.textSecondary}
+                  textPlaceholderClass={selectedStyle.textPlaceholder}
+                  focusRingClass={selectedStyle.focusRing}
+                  showDottedBorder={true}
                 />
               </div>
 
@@ -124,12 +128,16 @@ export default function Home() {
 
             {/* Editable Description */}
             <div className="mb-8 w-full" style={{ minWidth: 0, maxWidth: '100%' }}>
-              <EditableDescription
-                description={description}
-                setDescription={setDescription}
-                isDescriptionEditing={isDescriptionEditing}
-                setIsDescriptionEditing={setIsDescriptionEditing}
-                DESCRIPTION_PLACEHOLDER={DESCRIPTION_PLACEHOLDER}
+              <EditableText
+                value={description}
+                setValue={setDescription}
+                isValueEditing={isDescriptionEditing}
+                setIsValueEditing={setIsDescriptionEditing}
+                placeholder={DESCRIPTION_PLACEHOLDER}
+                textPrimaryClass={selectedStyle.textSecondary}
+                textPlaceholderClass={selectedStyle.textPlaceholder}
+                focusRingClass={selectedStyle.focusRing}
+                showDottedBorder={true}
               />
             </div>
 
