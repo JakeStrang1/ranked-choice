@@ -67,6 +67,7 @@ export default function Home() {
                     smallFontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
                     linesThreshold: 4
                   }}
+                  showDottedBorder={true}
                 />
               </div>
 
@@ -117,6 +118,7 @@ export default function Home() {
                   smallFontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
                   linesThreshold: 4
                 }}
+                showDottedBorder={true}
               />
             </div>
 
